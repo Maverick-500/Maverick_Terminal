@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Maverick Terminal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maverick Terminal</title>
 
-    <!-- Mono Font-->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <!-- Mono Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="terminal-wrap" class="fade-in">
-        <div id="terminal">
-            <pre id="header" class="ascii">
+  <div id="terminal-wrap">
+    <div id="terminal">
+      <pre id="header" class="ascii">
   __  __                      _      _    
  |  \/  |                    (_)    | |   
  | \  / | __ ___   _____ _ __ _  ___| | __
  | |\/| |/ _` \ \ / / _ \ '__| |/ __| |/ /
  | |  | | (_| |\ V /  __/ |  | | (__|   < 
  |_|  |_|\__,_| \_/ \___|_|  |_|\___|_|\_\
+      </pre>
 
-            </pre>
+      <div id="output" aria-live="polite"></div>
 
-            <div id="output" aria-live="polite"></div>
-
-            <form id="prompt" autocomplete="off" spellcheck="false">
-                <label class="prompt-line" for="cmd">
-                    <span class="prompt-label">maverick@terminal:~$</span>
-                    <input id="cmd" name="cmd" autofocus placeholder="type 'help' and press Enter" />
-                </label>
-            </form>
+      <form id="prompt" autocomplete="off" spellcheck="false">
+        <div class="prompt-line">
+          <span class="prompt-label">maverick@terminal:~$</span>
+          <input id="cmd" name="cmd" autofocus placeholder="type 'help' and press Enter" />
         </div>
+      </form>
     </div>
-
-    <div id="footer" class="fade-in">
-        <small>Tip: Try <code>help</code>, <code>projects</code>, <code>about</code>, <code>contact</code>, <code>clear</code>, <code>echo hello</code></small>
+    <div id="footer">
+      <small>Tip: Try <code>help</code>, <code>projects</code>, <code>about</code>, <code>contact</code>, <code>clear</code>, <code>echo hello</code></small>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

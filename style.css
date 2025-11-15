@@ -1,136 +1,99 @@
-:root{
-  --bg:#000;
-  --text:#33ff66;
-  --muted:#4b4b4b;
-  --accent:#ff2d95;
-  --glitch-red:#ff3344;
-  --glass: rgba(255,255,255,0.03);
-  --max-width:900px;
+:root {
+  --bg: #000;
+  --text: #33ff66;
+  --muted: #888;
+  --accent: #ff2d95;
+  --glitch: #ff3344;
   --mono: 'Share Tech Mono', monospace;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background: radial-gradient(ellipse at 10% 10%, rgba(51,255,102,0.03), transparent 5%),
-              radial-gradient(ellipse at 90% 90%, rgba(255,45,149,0.02), transparent 5%),
-              var(--bg);
-  color:var(--text);
-  font-family:var(--mono);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: var(--mono);
+  color: var(--text);
 }
 
-/* Terminal container */
-#terminal-wrap{
-  width:100%;
-  max-width:var(--max-width);
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:10px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-  padding:22px;
-  border:1px solid rgba(255,255,255,0.03);
+#terminal-wrap {
+  width: 95%;
+  max-width: 900px;
+  padding: 20px;
+  background: #010101;
+  border: 1px solid var(--text);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(51,255,102,0.5);
 }
 
-/* Terminal window */
-#terminal{
-  background: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.98));
-  padding:18px;
-  border-radius:6px;
-  min-height:320px;
-  max-height:70vh;
-  overflow:auto;
-  border: 1px solid rgba(0,255,102,0.04);
+#terminal {
+  background: #000;
+  padding: 16px;
+  border-radius: 4px;
+  min-height: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
-/* ASCII header */
-.ascii{
-  margin:0 0 12px 0;
-  color:var(--text);
-  font-size:14px;
-  line-height:1;
-  opacity:0.95;
+.ascii {
   white-space: pre;
+  text-shadow: 0 0 4px var(--text);
+  margin-bottom: 12px;
 }
 
-/* Output area */
-#output{
-  white-space:pre-wrap;
-  word-wrap:break-word;
-  font-size:15px;
-  margin-bottom:8px;
-  min-height:120px;
-  color:var(--text);
+#output > div {
+  text-shadow: 0 0 3px var(--text);
+  margin-bottom: 2px;
+  animation: flicker 2s infinite;
 }
 
-/* Prompt line */
-.prompt-line{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  width:100%;
+@keyframes flicker {
+  0%,18%,22%,25%,53%,60%,100% { opacity: 1; }
+  20%,24%,55% { opacity: 0.6; }
 }
 
-.prompt-label{
-  color:var(--muted);
-  margin-right:8px;
+.prompt-line {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
 }
 
-#cmd{
-  background:transparent;
-  border:none;
-  outline:none;
-  color:var(--text);
-  font-family:var(--mono);
-  font-size:15px;
-  flex:1;
-  caret-color:var(--text);
+.prompt-label { color: var(--muted); }
+
+#cmd {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  flex: 1;
+  caret-color: var(--accent);
 }
 
-#cmd::placeholder { 
-  color: rgba(51,255,102,0.3); 
+#cmd::placeholder { color: rgba(51,255,102,0.2); }
+
+#footer {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
-/* Footer */
-#footer{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* Links inside terminal */
-a.terminal-link{
-  color:var(--accent);
-  text-decoration:underline;
-}
-
-/* Matrix mode */
-.matrix{
-  background: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0.85));
-}
-
-/* Red glitch output */
-.glitch{
-  color:var(--glitch-red);
+.glitch {
+  color: var(--glitch);
   text-shadow:
     -1px 0 rgba(255,45,149,0.2),
-     1px 0 rgba(51,255,102,0.06);
-  font-weight:700;
+    1px 0 rgba(51,255,102,0.06);
+  font-weight: 700;
 }
 
-/* Small screens adjustments */
-@media (max-width:520px){
-  :root{--max-width:100%}
-  .ascii{font-size:12px}
-  #terminal{padding:14px; min-height:260px}
-  #output{font-size:14px}
+.matrix {
+  background: linear-gradient(180deg,#000,#001100);
 }
 
-/* fade-in animation */
-.fade-in{animation:fadeIn 360ms ease both}
-@keyframes fadeIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+@media (max-width: 520px){
+  .ascii { font-size: 12px; }
+  #terminal { padding: 12px; min-height: 260px; }
+  #output, #cmd { font-size: 14px; }
+}
