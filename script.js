@@ -4,7 +4,6 @@
     const input = document.getElementById('cmd');
     const terminal = document.getElementById('terminal');
 
-    // Basic Command Listener
     const PROFILE = {
         name: "Maverick",
         title : " Hack Club Leader",
@@ -26,26 +25,24 @@
         ]
     };
 
-    // Utilities
-    function el(text, className) {
+    function el(text, className){
         const node = document.createElement('div');
-        if (className) node.className = className;
+        if(className) node.className = className;
         node.textContent = text;
         return node;
     }
 
-    // Typing animation for output lines
-    function typeLine(text, opts = {}) {
+    function typeLine(text, opts = {}){
         const speed = typeof opts.speed === 'number' ? opts.speed : 18;
         const container = document.createElement('div');
         container.className = opts.className || '';
         output.appendChild(container);
         terminal.scrollTop = terminal.scrollHeight;
 
-        return new Promise((resolve) => {
-            let i = 0;
-            function step() {
-                if (i < text.length - 1) {
+        return new Promise(resolve => {
+            let i=0;
+            function step(){
+                if(i < text.length){
                     container.textContent += text.charAt(i);
                     i++;
                     terminal.scrollTop = terminal.scrollHeight;
@@ -59,55 +56,47 @@
         });
     }
 
-    // Print multiple lines sequentially
-    async function printLines(lines, opts = {}) {
-        for (const line of lines) {
-            if (typeof line === 'string') {
-                await typeLine(line, opts);
-            } else if (line instanceof HTMLElement) {
-                output.appendChild(line);
-            }
+    async function printLines(lines, opts={}){
+        for(const line of lines){
+            if(typeof line==='string') await typeLine(line, opts);
+            else if(line instanceof HTMLElement) output.appendChild(line);
         }
         terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Print Immediately
-    function printNow(text, className) {
-        const node = el(text, className);
+    function printNow(text,className){
+        const node=el(text,className);
         output.appendChild(node);
         terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Clear Output
-    function clearScreen() {
-        output.innerHTML = '';
+    function clearScreen(){
+        output.innerHTML='';
         terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Matrix Mode Toggle
-    let matrixActive = false;
-    function toggleMatrixMode(on) {
-        matrixActive = typeof on === 'boolean' ? on : !matrixActive;
-        if (matrixActive) {
+    let matrixActive=false;
+    function toggleMatrixMode(on){
+        matrixActive=typeof on==='boolean'?on:!matrixActive;
+        if(matrixActive){
             terminal.classList.add('matrix');
-            printNow("Matrix mode activated.", "info");
+            printNow("Matrix mode activated.","info");
         } else {
             terminal.classList.remove('matrix');
-            printNow("Matrix mode deactivated.", "info");
+            printNow("Matrix mode deactivated.","info");
         }
     }
 
-    // Command Handlers
-    async function handleCommand(raw) {
-        const line = raw.trim().toLowerCase();
-        if (!line) return;
+    async function handleCommand(raw){
+        const line=raw.trim();
+        if(!line) return;
 
-        printNow(`maverick@terminal:~$ ${line}`, 'cmd-echo');
+        printNow(`maverick@terminal:~$ ${line}`,'cmd-echo');
 
-        const [cmd, ...args] = line.split(/\s+/);
-        const rest = args.join(' ');
+        const [cmd,...args]=line.split(/\s+/);
+        const rest=args.join(' ');
 
-        switch (cmd.toLowerCase()) {
+        switch(cmd.toLowerCase()){
             case 'help':
                 await printLines([
                     "Available commands:",
@@ -121,37 +110,31 @@
                     "  matrix    - toggle matrix mode"
                 ]);
                 break;
-
             case 'about':
                 await printLines([`Name: ${PROFILE.name}`, `Title: ${PROFILE.title}`, '', ...PROFILE.bio]);
                 break;
-
             case 'projects':
-                if (PROFILE.projects.length === 0) {
+                if(PROFILE.projects.length===0){
                     await printLines(["No projects to show."]);
                 } else {
-                    const lines = ["Projects:"];
-                    PROFILE.projects.forEach(p => {
+                    const lines=["Projects:"];
+                    PROFILE.projects.forEach(p=>{
                         lines.push(` - ${p.name} — ${p.url}`);
                     });
                     await printLines(lines);
                 }
                 break;
-                
             case 'contact':
-                await printLines(["Contact: ", ...PROFILE.contact]);
+                await printLines(["Contact: ",...PROFILE.contact]);
                 break;
-
             case 'clear':
                 clearScreen();
                 break;
-
             case 'echo':
                 await printLines([rest]);
                 break;
-
             case 'maverick':
-            const asciiGlitch = `
+                const asciiGlitch=`
   __  __                      _      _    
  |  \\/  |                    (_)    | |   
  | \\  / | __ ___   _____ _ __ _  ___| | __
@@ -160,46 +143,39 @@
  |_|  |_|\\__,_| \\_/ \\___|_|  |_|\\___|_|\\_\\
                                           
 `;
-                await printLines([asciiGlitch, '"Even god can\'t save you now"'], {className: 'glitch'});
+                await printLines([asciiGlitch,'"Even god can\'t save you now"'],{className:'glitch'});
                 break;
-
             case 'matrix':
                 toggleMatrixMode();
                 break;
-
             default:
-                await printLines([`Command not found: ${cmd}`, `Type 'help' for a list of commands.`]);
+                await printLines([`Command not found: ${cmd}`,`Type 'help' for a list of commands.`]);
         }
     }
 
-    // Boot Message
-    async function bootSequence() {
+    async function bootSequence(){
         await typeLine("Initiating Maverick Terminal v1.0...");
         await typeLine("Loading modules: [terminal] [profile] [projects]");
         await typeLine("");
-        await printLines(`Welcome — type 'help' to get started.`);
+        await printLines(["Welcome — type 'help' to get started."]);
         terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Form Submission
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async e=>{
         e.preventDefault();
-        const value = input.value;
-        input.value = '';
+        const value=input.value;
+        input.value='';
         input.blur();
         await handleCommand(value);
         input.focus();
-    }
-    );
+    });
 
-    // CTRL+L / CMD+L shortcut to clear
-    document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
+    document.addEventListener('keydown', e=>{
+        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='l'){
             e.preventDefault();
             clearScreen();
         }
     });
 
-    // Start Sequence
     bootSequence();
 })();

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maverick Terminal</title>
 
-    <!-- Mono Font-->
+    <!-- Mono Font -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="terminal-wrap" class="fade-in"
-        <div id="terminal"
-        <pre id="header" class="ascii">
+    <div id="terminal-wrap" class="fade-in">
+        <div id="terminal">
+            <pre id="header" class="ascii">
   __  __                      _      _    
  |  \/  |                    (_)    | |   
  | \  / | __ ___   _____ _ __ _  ___| | __
@@ -21,21 +21,23 @@
  | |  | | (_| |\ V /  __/ |  | | (__|   < 
  |_|  |_|\__,_| \_/ \___|_|  |_|\___|_|\_\
 
-        </pre>
+            </pre>
 
-        <div id="output" aria-live="polite">
+            <div id="output" aria-live="polite"></div>
 
-        <form id="prompt" autocomplete="off" spellcheck="false">
-            <label class="prompt=line" for="cmd">
-                <span class="prompt-label">maverick@terminal:~$</span>
-                <input id="cmd" name="cmd" autofocus placeholder="type 'help' and press Enter" />
-            </label>
-        </form>
+            <form id="form" autocomplete="off" spellcheck="false">
+                <label class="prompt-line" for="cmd">
+                    <span class="prompt-label">maverick@terminal:~$</span>
+                    <input id="cmd" name="cmd" autofocus placeholder="type 'help' and press Enter" aria-label="Terminal input command"/>
+                </label>
+            </form>
+        </div>
+
+        <div id="footer" class="fade-in">
+            <small> Tip: Try <code>help</code>, <code>projects</code>, <code>about</code>, <code>contact</code>, <code>clear</code>, <code>echo hello</code></small>
+        </div>
     </div>
 
-    <div id="footer" class="fade-in">
-        <small> Tip: Try <code>help</code>, <code>projects</code>, <code>about</code>, <code>contact</code>, <code>clear</code>, <code>echo hello</code></small>
-    </div>
-    <script src="terminal.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
