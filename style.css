@@ -37,7 +37,7 @@ body{
   border:1px solid rgba(255,255,255,0.03);
 }
 
-/* The terminal window */
+/* Terminal window */
 #terminal{
   background: linear-gradient(180deg, rgba(0,0,0,0.95), rgba(0,0,0,0.98));
   padding:18px;
@@ -58,13 +58,14 @@ body{
   white-space: pre;
 }
 
-/* Output area where lines appear */
+/* Output area */
 #output{
   white-space:pre-wrap;
   word-wrap:break-word;
   font-size:15px;
   margin-bottom:8px;
   min-height:120px;
+  color:var(--text);
 }
 
 /* Prompt line */
@@ -91,8 +92,9 @@ body{
   caret-color:var(--text);
 }
 
-/* Blinking cursor simulation when input is empty (mobile prompt) */
-#cmd::placeholder { color: rgba(51,255,102,0.2); }
+#cmd::placeholder { 
+  color: rgba(51,255,102,0.3); 
+}
 
 /* Footer */
 #footer{
@@ -101,18 +103,18 @@ body{
   font-size:12px;
 }
 
-/* Link style inside terminal */
+/* Links inside terminal */
 a.terminal-link{
   color:var(--accent);
   text-decoration:underline;
 }
 
-/* Matrix mode (applied by JS) */
+/* Matrix mode */
 .matrix{
   background: linear-gradient(180deg, rgba(0,0,0,1), rgba(0,0,0,0.85));
 }
 
-/* Red glitch accent for special output */
+/* Red glitch output */
 .glitch{
   color:var(--glitch-red);
   text-shadow:
@@ -129,6 +131,6 @@ a.terminal-link{
   #output{font-size:14px}
 }
 
-/* fade-in */
+/* fade-in animation */
 .fade-in{animation:fadeIn 360ms ease both}
 @keyframes fadeIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
